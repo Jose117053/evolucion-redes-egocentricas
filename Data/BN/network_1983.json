@@ -1,0 +1,2523 @@
+{
+    "network": {
+        "items": [
+            {
+                "id": "MCT.4.61.1460",
+                "label": "MCT - 4.61.1460 Bayesian Networks",
+                "x": 0,
+                "y": 0,
+                "cluster": "61",
+                "weights": {
+                    "WoS Categories": 30,
+                    "Document Types": 5,
+                    "Documents,": 32
+                },
+                "scores": {
+                    "Ave. citations": 27.5,
+                    "Ave. authorships": 1.66,
+                    "Ave. references": 11.56,
+                    "Percent of documents": 100.0,
+                    "Percent of documents Int. Coll.": 3.12
+                }
+            },
+            {
+                "id": "4.61.1460",
+                "label": "4.61.1460 Bayesian Networks",
+                "x": 0,
+                "y": 1,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 64,
+                    "Document Types": 10,
+                    "Documents,": 432
+                },
+                "scores": {
+                    "Ave. citations": 41.73,
+                    "Ave. authorships": 2.44,
+                    "Ave. references": 39.81,
+                    "Percent of documents": 55.74,
+                    "Percent of documents Int. Coll.": 18.98
+                }
+            },
+            {
+                "id": "9.50.372",
+                "label": "9.50.372 Fractional Brownian Motion",
+                "x": 0,
+                "y": 2,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 6,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 0.5,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 25.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.50.1564",
+                "label": "9.50.1564 Convex Body",
+                "x": 0,
+                "y": 3,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 3.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 76.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.47.410",
+                "label": "4.47.410 Software Metrics",
+                "x": 0,
+                "y": 4,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 11.67,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 93.67,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 66.67
+                }
+            },
+            {
+                "id": "4.61.869",
+                "label": "4.61.869 Clustering",
+                "x": 0,
+                "y": 5,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 7,
+                    "Document Types": 2,
+                    "Documents,": 5
+                },
+                "scores": {
+                    "Ave. citations": 12.6,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 26.2,
+                    "Percent of documents": 0.65,
+                    "Percent of documents Int. Coll.": 60.0
+                }
+            },
+            {
+                "id": "6.73.130",
+                "label": "6.73.130 Persuasion",
+                "x": 0,
+                "y": 6,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 13,
+                    "Document Types": 2,
+                    "Documents,": 10
+                },
+                "scores": {
+                    "Ave. citations": 77.4,
+                    "Ave. authorships": 2.5,
+                    "Ave. references": 51.1,
+                    "Percent of documents": 1.29,
+                    "Percent of documents Int. Coll.": 30.0
+                }
+            },
+            {
+                "id": "10.126.1019",
+                "label": "10.126.1019 Virtue Epistemology",
+                "x": 0,
+                "y": 7,
+                "cluster": "10",
+                "weights": {
+                    "WoS Categories": 7,
+                    "Document Types": 2,
+                    "Documents,": 7
+                },
+                "scores": {
+                    "Ave. citations": 60.14,
+                    "Ave. authorships": 1.43,
+                    "Ave. references": 41.29,
+                    "Percent of documents": 0.9,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.47.1589",
+                "label": "4.47.1589 Access Control",
+                "x": 0,
+                "y": 8,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 65.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.24.93",
+                "label": "6.24.93 PTSD",
+                "x": 0,
+                "y": 9,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 11.5,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 60.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.155.611",
+                "label": "1.155.611 Evidence Based Medicine",
+                "x": 0,
+                "y": 10,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 10.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 130.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.10.1076",
+                "label": "6.10.1076 Retirement",
+                "x": 0,
+                "y": 11,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 9.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 72.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "7.133.114",
+                "label": "7.133.114 Liquefaction",
+                "x": 0,
+                "y": 12,
+                "cluster": "7",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 48.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.2.92",
+                "label": "3.2.92 Fisheries",
+                "x": 0,
+                "y": 13,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 9.0,
+                    "Ave. authorships": 10.0,
+                    "Ave. references": 71.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "6.122.437",
+                "label": "6.122.437 Cooperation",
+                "x": 0,
+                "y": 14,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 7,
+                    "Document Types": 2,
+                    "Documents,": 5
+                },
+                "scores": {
+                    "Ave. citations": 2.8,
+                    "Ave. authorships": 2.8,
+                    "Ave. references": 35.4,
+                    "Percent of documents": 0.65,
+                    "Percent of documents Int. Coll.": 40.0
+                }
+            },
+            {
+                "id": "4.61.145",
+                "label": "4.61.145 Feature Selection",
+                "x": 0,
+                "y": 15,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 10,
+                    "Document Types": 3,
+                    "Documents,": 10
+                },
+                "scores": {
+                    "Ave. citations": 75.8,
+                    "Ave. authorships": 2.5,
+                    "Ave. references": 39.6,
+                    "Percent of documents": 1.29,
+                    "Percent of documents Int. Coll.": 10.0
+                }
+            },
+            {
+                "id": "4.17.128",
+                "label": "4.17.128 Deep Learning",
+                "x": 0,
+                "y": 16,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 572.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 121.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.47.463",
+                "label": "4.47.463 Answer Set Programming",
+                "x": 0,
+                "y": 17,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 9,
+                    "Document Types": 6,
+                    "Documents,": 10
+                },
+                "scores": {
+                    "Ave. citations": 12.1,
+                    "Ave. authorships": 2.1,
+                    "Ave. references": 120.6,
+                    "Percent of documents": 1.29,
+                    "Percent of documents Int. Coll.": 10.0
+                }
+            },
+            {
+                "id": "7.192.732",
+                "label": "7.192.732 Polynomial Chaos",
+                "x": 0,
+                "y": 18,
+                "cluster": "7",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 3,
+                    "Documents,": 4
+                },
+                "scores": {
+                    "Ave. citations": 27.5,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 52.25,
+                    "Percent of documents": 0.52,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.56",
+                "label": "4.61.56 Fuzzy Sets",
+                "x": 0,
+                "y": 19,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 26,
+                    "Document Types": 7,
+                    "Documents,": 81
+                },
+                "scores": {
+                    "Ave. citations": 45.96,
+                    "Ave. authorships": 1.54,
+                    "Ave. references": 121.9,
+                    "Percent of documents": 10.45,
+                    "Percent of documents Int. Coll.": 12.35
+                }
+            },
+            {
+                "id": "7.121.431",
+                "label": "7.121.431 Reinforced Concrete",
+                "x": 0,
+                "y": 20,
+                "cluster": "7",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 7.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 39.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.220",
+                "label": "9.92.220 Nonparametric Regression",
+                "x": 0,
+                "y": 21,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 12,
+                    "Document Types": 2,
+                    "Documents,": 30
+                },
+                "scores": {
+                    "Ave. citations": 79.2,
+                    "Ave. authorships": 1.93,
+                    "Ave. references": 77.47,
+                    "Percent of documents": 3.87,
+                    "Percent of documents Int. Coll.": 20.0
+                }
+            },
+            {
+                "id": "6.3.2",
+                "label": "6.3.2 Knowledge Management",
+                "x": 0,
+                "y": 22,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 34.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 159.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "3.35.274",
+                "label": "3.35.274 Species Conservation",
+                "x": 0,
+                "y": 23,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 2,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 7.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 123.0,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.672",
+                "label": "4.48.672 Natural Language Processing",
+                "x": 0,
+                "y": 24,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 1.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 12.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.1472",
+                "label": "9.92.1472 Average Run Length",
+                "x": 0,
+                "y": 25,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 50.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.13.2771",
+                "label": "4.13.2771 Network Coding",
+                "x": 0,
+                "y": 26,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 7.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 34.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.169.91",
+                "label": "4.169.91 NDVI",
+                "x": 0,
+                "y": 27,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 9,
+                    "Document Types": 3,
+                    "Documents,": 9
+                },
+                "scores": {
+                    "Ave. citations": 57.33,
+                    "Ave. authorships": 1.89,
+                    "Ave. references": 40.11,
+                    "Percent of documents": 1.16,
+                    "Percent of documents Int. Coll.": 11.11
+                }
+            },
+            {
+                "id": "6.10.80",
+                "label": "6.10.80 Option Pricing",
+                "x": 0,
+                "y": 28,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 12.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 32.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.116.133",
+                "label": "4.116.133 Simultaneous Localization and Mapping",
+                "x": 0,
+                "y": 29,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 2,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 13.33,
+                    "Ave. authorships": 3.67,
+                    "Ave. references": 42.67,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.10.22",
+                "label": "6.10.22 Monetary Policy",
+                "x": 0,
+                "y": 30,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 30.67,
+                    "Ave. authorships": 2.33,
+                    "Ave. references": 91.0,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 33.33
+                }
+            },
+            {
+                "id": "5.56.9",
+                "label": "5.56.9 Entanglement",
+                "x": 0,
+                "y": 31,
+                "cluster": "5",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 2,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 70.33,
+                    "Ave. authorships": 1.67,
+                    "Ave. references": 33.67,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 33.33
+                }
+            },
+            {
+                "id": "6.122.1287",
+                "label": "6.122.1287 Crop Insurance",
+                "x": 0,
+                "y": 32,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 22,
+                    "Document Types": 4,
+                    "Documents,": 14
+                },
+                "scores": {
+                    "Ave. citations": 67.71,
+                    "Ave. authorships": 2.14,
+                    "Ave. references": 38.79,
+                    "Percent of documents": 1.81,
+                    "Percent of documents Int. Coll.": 28.57
+                }
+            },
+            {
+                "id": "4.183.495",
+                "label": "4.183.495 Travel Behavior",
+                "x": 0,
+                "y": 33,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 25.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 79.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.47.194",
+                "label": "4.47.194 Service-oriented Architecture",
+                "x": 0,
+                "y": 34,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 30.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 48.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.29.587",
+                "label": "4.29.587 Target Tracking",
+                "x": 0,
+                "y": 35,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 57.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.50.1962",
+                "label": "9.50.1962 Viscosity Solutions",
+                "x": 0,
+                "y": 36,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 21.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.46.85",
+                "label": "4.46.85 Cloud Computing",
+                "x": 0,
+                "y": 37,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 21.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 47.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.1337",
+                "label": "9.92.1337 Causal Inference",
+                "x": 0,
+                "y": 38,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 10,
+                    "Document Types": 4,
+                    "Documents,": 13
+                },
+                "scores": {
+                    "Ave. citations": 83.31,
+                    "Ave. authorships": 2.31,
+                    "Ave. references": 39.0,
+                    "Percent of documents": 1.68,
+                    "Percent of documents Int. Coll.": 7.69
+                }
+            },
+            {
+                "id": "1.155.1378",
+                "label": "1.155.1378 Uncertainty Theory",
+                "x": 0,
+                "y": 39,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 18.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 41.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.223.247",
+                "label": "6.223.247 Tourism",
+                "x": 0,
+                "y": 40,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 30.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 45.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.332",
+                "label": "9.92.332 Missing Data",
+                "x": 0,
+                "y": 41,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 58.0,
+                    "Ave. authorships": 6.0,
+                    "Ave. references": 38.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.13.696",
+                "label": "4.13.696 Indoor Localization",
+                "x": 0,
+                "y": 42,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 22.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "6.122.451",
+                "label": "6.122.451 Auctions",
+                "x": 0,
+                "y": 43,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 779.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.40.635",
+                "label": "3.40.635 Ecosystem Services",
+                "x": 0,
+                "y": 44,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 575.0,
+                    "Ave. authorships": 12.0,
+                    "Ave. references": 231.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.189.455",
+                "label": "1.189.455 Genome-Wide Association Studies",
+                "x": 0,
+                "y": 45,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 39.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.4.159",
+                "label": "3.4.159 Arabidopsis",
+                "x": 0,
+                "y": 46,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 5.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 118.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.17.630",
+                "label": "4.17.630 Action Recognition",
+                "x": 0,
+                "y": 47,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 14.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 26.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.142.165",
+                "label": "1.142.165 Urinary Incontinence",
+                "x": 0,
+                "y": 48,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 26.0,
+                    "Ave. authorships": 6.0,
+                    "Ave. references": 99.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.237.911",
+                "label": "4.237.911 Safety Climate",
+                "x": 0,
+                "y": 49,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 12.5,
+                    "Ave. authorships": 1.5,
+                    "Ave. references": 28.0,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.1783",
+                "label": "4.48.1783 Statistical Tests",
+                "x": 0,
+                "y": 50,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 5.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 17.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "1.65.44",
+                "label": "1.65.44 Asthma",
+                "x": 0,
+                "y": 51,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 40.5,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 93.0,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.851",
+                "label": "9.92.851 Adaptive Design",
+                "x": 0,
+                "y": 52,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 27.5,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 36.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.35.434",
+                "label": "3.35.434 Sexual Selection",
+                "x": 0,
+                "y": 53,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 17.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 36.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.962",
+                "label": "4.48.962 Similarity Search",
+                "x": 0,
+                "y": 54,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 3.0,
+                    "Ave. authorships": 1.5,
+                    "Ave. references": 29.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.54.79",
+                "label": "1.54.79 Gene Expression Data",
+                "x": 0,
+                "y": 55,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 19.5,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 79.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.3.368",
+                "label": "6.3.368 Technology Acceptance Model",
+                "x": 0,
+                "y": 56,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 18.0,
+                    "Ave. authorships": 1.5,
+                    "Ave. references": 60.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.2106",
+                "label": "4.61.2106 Case-Based Reasoning",
+                "x": 0,
+                "y": 57,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 24.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 40.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.1302",
+                "label": "4.61.1302 Intrusion Detection",
+                "x": 0,
+                "y": 58,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 18.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.84.260",
+                "label": "4.84.260 Supply Chain",
+                "x": 0,
+                "y": 59,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 19.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.187.160",
+                "label": "4.187.160 Random Oracle Model",
+                "x": 0,
+                "y": 60,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 1.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 43.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.1124",
+                "label": "4.61.1124 Rough Sets",
+                "x": 0,
+                "y": 61,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 11.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 42.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.143.1690",
+                "label": "9.143.1690 Nonextensive Statistical Mechanics",
+                "x": 0,
+                "y": 62,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 19.5,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 96.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.3.65",
+                "label": "6.3.65 Customer Satisfaction",
+                "x": 0,
+                "y": 63,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 26.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 56.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "6.73.685",
+                "label": "6.73.685 Item Response Theory",
+                "x": 0,
+                "y": 64,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 96.5,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 22.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 50.0
+                }
+            },
+            {
+                "id": "3.35.1285",
+                "label": "3.35.1285 Birdsong",
+                "x": 0,
+                "y": 65,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 21.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.322",
+                "label": "4.48.322 Semantic Web",
+                "x": 0,
+                "y": 66,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 10.5,
+                    "Ave. authorships": 1.5,
+                    "Ave. references": 29.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 50.0
+                }
+            },
+            {
+                "id": "1.150.1538",
+                "label": "1.150.1538 Road Traffic Noise",
+                "x": 0,
+                "y": 67,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 28.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 52.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "1.128.482",
+                "label": "1.128.482 Contraception",
+                "x": 0,
+                "y": 68,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 6
+                },
+                "scores": {
+                    "Ave. citations": 104.83,
+                    "Ave. authorships": 2.17,
+                    "Ave. references": 33.67,
+                    "Percent of documents": 0.77,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.1820",
+                "label": "4.61.1820 Credit Scoring",
+                "x": 0,
+                "y": 69,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 20.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.120",
+                "label": "4.48.120 Complex Networks",
+                "x": 0,
+                "y": 70,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 127.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 61.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.1336",
+                "label": "4.61.1336 Association Rules",
+                "x": 0,
+                "y": 71,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 8.0,
+                    "Ave. authorships": 1.5,
+                    "Ave. references": 91.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.84.169",
+                "label": "4.84.169 Particle Swarm Optimization",
+                "x": 0,
+                "y": 72,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 12.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 35.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.143.777",
+                "label": "9.143.777 Global Exponential Stability",
+                "x": 0,
+                "y": 73,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 19.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "8.8.36",
+                "label": "8.8.36 Earthquakes",
+                "x": 0,
+                "y": 74,
+                "cluster": "8",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 21.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 50.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.129.98",
+                "label": "1.129.98 Low Back Pain",
+                "x": 0,
+                "y": 75,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 2,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 152.5,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 117.0,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.307.1039",
+                "label": "1.307.1039 Laboratory Medicine",
+                "x": 0,
+                "y": 76,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 2,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 6.33,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 83.33,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.1215",
+                "label": "4.48.1215 Information Visualization",
+                "x": 0,
+                "y": 77,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 5,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 26.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 31.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.247.461",
+                "label": "1.247.461 Migraine",
+                "x": 0,
+                "y": 78,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 123.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 45.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.129.175",
+                "label": "1.129.175 Intervertebral Disc",
+                "x": 0,
+                "y": 79,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 28.0,
+                    "Ave. authorships": 6.0,
+                    "Ave. references": 44.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.14.703",
+                "label": "1.14.703 Electronic Health Records",
+                "x": 0,
+                "y": 80,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 3.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 84.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.29.923",
+                "label": "4.29.923 Fault Detection",
+                "x": 0,
+                "y": 81,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 1.5,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 170.0,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.48.228",
+                "label": "4.48.228 Information Literacy",
+                "x": 0,
+                "y": 82,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 8.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 33.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.34.1020",
+                "label": "1.34.1020 Scaphoid",
+                "x": 0,
+                "y": 83,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 3
+                },
+                "scores": {
+                    "Ave. citations": 13.67,
+                    "Ave. authorships": 1.67,
+                    "Ave. references": 45.0,
+                    "Percent of documents": 0.39,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.17.282",
+                "label": "4.17.282 Image Segmentation",
+                "x": 0,
+                "y": 84,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 6,
+                    "Document Types": 1,
+                    "Documents,": 2
+                },
+                "scores": {
+                    "Ave. citations": 1385.0,
+                    "Ave. authorships": 2.5,
+                    "Ave. references": 55.5,
+                    "Percent of documents": 0.26,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.253.1100",
+                "label": "1.253.1100 Carpal Tunnel Syndrome",
+                "x": 0,
+                "y": 85,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 1.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 16.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.61.493",
+                "label": "4.61.493 Load Forecasting",
+                "x": 0,
+                "y": 86,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 5.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 16.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.203.147",
+                "label": "1.203.147 Multiple Sclerosis",
+                "x": 0,
+                "y": 87,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 58.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.284.1210",
+                "label": "4.284.1210 Public Displays",
+                "x": 0,
+                "y": 88,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 4.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 26.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.248.655",
+                "label": "1.248.655 Chlamydia Trachomatis",
+                "x": 0,
+                "y": 89,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 12.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 16.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.97.636",
+                "label": "3.97.636 Fungicides",
+                "x": 0,
+                "y": 90,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 4,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 33.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 34.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.185.2501",
+                "label": "6.185.2501 Wikipedia",
+                "x": 0,
+                "y": 91,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 8,
+                    "Document Types": 3,
+                    "Documents,": 8
+                },
+                "scores": {
+                    "Ave. citations": 9.62,
+                    "Ave. authorships": 1.62,
+                    "Ave. references": 48.88,
+                    "Percent of documents": 1.03,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "4.17.245",
+                "label": "4.17.245 Volume Rendering",
+                "x": 0,
+                "y": 92,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 60.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 30.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "3.91.496",
+                "label": "3.91.496 Cadmium",
+                "x": 0,
+                "y": 93,
+                "cluster": "3",
+                "weights": {
+                    "WoS Categories": 3,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 18.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 15.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.156.436",
+                "label": "1.156.436 Self-Rated Health",
+                "x": 0,
+                "y": 94,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 126.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 40.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.122.1087",
+                "label": "6.122.1087 Contingent Valuation",
+                "x": 0,
+                "y": 95,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 2.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 15.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.10.502",
+                "label": "6.10.502 Data Envelopment Analysis",
+                "x": 0,
+                "y": 96,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 6.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 37.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "6.3.1667",
+                "label": "6.3.1667 Six Sigma",
+                "x": 0,
+                "y": 97,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 5.0,
+                    "Ave. authorships": 4.0,
+                    "Ave. references": 1670.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 100.0
+                }
+            },
+            {
+                "id": "4.48.1899",
+                "label": "4.48.1899 Qualitative Spatial Reasoning",
+                "x": 0,
+                "y": 98,
+                "cluster": "4",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 47.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 34.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.43.202",
+                "label": "1.43.202 Bupivacaine",
+                "x": 0,
+                "y": 99,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 95.0,
+                    "Ave. authorships": 5.0,
+                    "Ave. references": 26.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.34.158",
+                "label": "1.34.158 Total Arthroplasty",
+                "x": 0,
+                "y": 100,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 20.0,
+                    "Ave. authorships": 3.0,
+                    "Ave. references": 8.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "6.294.1626",
+                "label": "6.294.1626 Systems Thinking",
+                "x": 0,
+                "y": 101,
+                "cluster": "6",
+                "weights": {
+                    "WoS Categories": 1,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 41.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 36.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "1.105.514",
+                "label": "1.105.514 Subarachnoid Hemorrhage",
+                "x": 0,
+                "y": 102,
+                "cluster": "1",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 132.0,
+                    "Ave. authorships": 2.0,
+                    "Ave. references": 40.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.92.1551",
+                "label": "9.92.1551 D-Optimality",
+                "x": 0,
+                "y": 103,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 15.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 23.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            },
+            {
+                "id": "9.207.303",
+                "label": "9.207.303 Fixed Point",
+                "x": 0,
+                "y": 104,
+                "cluster": "9",
+                "weights": {
+                    "WoS Categories": 2,
+                    "Document Types": 1,
+                    "Documents,": 1
+                },
+                "scores": {
+                    "Ave. citations": 1.0,
+                    "Ave. authorships": 1.0,
+                    "Ave. references": 64.0,
+                    "Percent of documents": 0.13,
+                    "Percent of documents Int. Coll.": 0.0
+                }
+            }
+        ],
+        "links": [
+            {
+                "source_id": "4.61.1460",
+                "target_id": "MCT.4.61.1460",
+                "strength": 432
+            },
+            {
+                "source_id": "9.50.372",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "9.50.1564",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.47.410",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "4.61.869",
+                "target_id": "MCT.4.61.1460",
+                "strength": 5
+            },
+            {
+                "source_id": "6.73.130",
+                "target_id": "MCT.4.61.1460",
+                "strength": 10
+            },
+            {
+                "source_id": "10.126.1019",
+                "target_id": "MCT.4.61.1460",
+                "strength": 7
+            },
+            {
+                "source_id": "4.47.1589",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.24.93",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "1.155.611",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.10.1076",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "7.133.114",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.2.92",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.122.437",
+                "target_id": "MCT.4.61.1460",
+                "strength": 5
+            },
+            {
+                "source_id": "4.61.145",
+                "target_id": "MCT.4.61.1460",
+                "strength": 10
+            },
+            {
+                "source_id": "4.17.128",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.47.463",
+                "target_id": "MCT.4.61.1460",
+                "strength": 10
+            },
+            {
+                "source_id": "7.192.732",
+                "target_id": "MCT.4.61.1460",
+                "strength": 4
+            },
+            {
+                "source_id": "4.61.56",
+                "target_id": "MCT.4.61.1460",
+                "strength": 81
+            },
+            {
+                "source_id": "7.121.431",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "9.92.220",
+                "target_id": "MCT.4.61.1460",
+                "strength": 30
+            },
+            {
+                "source_id": "6.3.2",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.35.274",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "4.48.672",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.92.1472",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.13.2771",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.169.91",
+                "target_id": "MCT.4.61.1460",
+                "strength": 9
+            },
+            {
+                "source_id": "6.10.80",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.116.133",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "6.10.22",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "5.56.9",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "6.122.1287",
+                "target_id": "MCT.4.61.1460",
+                "strength": 14
+            },
+            {
+                "source_id": "4.183.495",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.47.194",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.29.587",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.50.1962",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "4.46.85",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.92.1337",
+                "target_id": "MCT.4.61.1460",
+                "strength": 13
+            },
+            {
+                "source_id": "1.155.1378",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.223.247",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.92.332",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.13.696",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.122.451",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.40.635",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.189.455",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.4.159",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.17.630",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.142.165",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.237.911",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "4.48.1783",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.65.44",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "9.92.851",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "3.35.434",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.48.962",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "1.54.79",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "6.3.368",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "4.61.2106",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.61.1302",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.84.260",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.187.160",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.61.1124",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.143.1690",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "6.3.65",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.73.685",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "3.35.1285",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.48.322",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "1.150.1538",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.128.482",
+                "target_id": "MCT.4.61.1460",
+                "strength": 6
+            },
+            {
+                "source_id": "4.61.1820",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.48.120",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.61.1336",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "4.84.169",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.143.777",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "8.8.36",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.129.98",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "1.307.1039",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "4.48.1215",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.247.461",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.129.175",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.14.703",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.29.923",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "4.48.228",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.34.1020",
+                "target_id": "MCT.4.61.1460",
+                "strength": 3
+            },
+            {
+                "source_id": "4.17.282",
+                "target_id": "MCT.4.61.1460",
+                "strength": 2
+            },
+            {
+                "source_id": "1.253.1100",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.61.493",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.203.147",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.284.1210",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.248.655",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.97.636",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.185.2501",
+                "target_id": "MCT.4.61.1460",
+                "strength": 8
+            },
+            {
+                "source_id": "4.17.245",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "3.91.496",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.156.436",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.122.1087",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.10.502",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.3.1667",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "4.48.1899",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.43.202",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.34.158",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "6.294.1626",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "1.105.514",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.92.1551",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            },
+            {
+                "source_id": "9.207.303",
+                "target_id": "MCT.4.61.1460",
+                "strength": 1
+            }
+        ]
+    }
+}
