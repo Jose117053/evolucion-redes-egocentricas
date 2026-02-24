@@ -29,11 +29,12 @@ def download_jsons():
             else:
                 print(f"Error {response.status_code} (No encontrado o servidor caído)")      
             # Pausa entre descargas
-            time.sleep(0.5)
+            time.sleep(0.2)
 
         except Exception as e:
             print(f"\n Falló la descarga de {year}: {e}")
 
     print("\n--- Proceso Finalizado ---")
 
-download_jsons()
+if __name__ == "__main__":
+    download_jsons()
