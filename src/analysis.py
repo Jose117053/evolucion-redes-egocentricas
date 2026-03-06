@@ -332,44 +332,72 @@ def add_dominants(df: pd.DataFrame, feature_specs: dict):
 
     return df_out
 
-def compute_global_thresholds(snapshots, feature_names,cat_specs):
-    # Construir umbrales globales
+def compute_thresholds(snapshots, feature_names, cat_specs, mode="global", window_size=5):
+    """
+    Regresa: thresholds_by_year[year][feature] = edges
+    - mode="global": un solo set de edges para todos los años
+    - mode="window": edges calculados por ventanas de años (bloques)
+    """
+    years = sorted(snapshots.keys())
+    thresholds_by_year = {y: {} for y in years}
 
-    global_edges = {}
-
-    for feat, spec in cat_specs.items():
-        if feat not in feature_names:
-            print(f"[WARN] Feature no encontrado en feature_names: {feat}. Se omitirá.")
-            global_edges[feat] = None
-            continue
-
-        j = feature_names.index(feat) #indice del feature en la matriz X, si av citations es columna 3 entonces j=3
-
-        # juntar valores de todos los años (alters)
-        all_vals = [] #lista de listas, cada lista tiene los valores de la columna recibida (el feature)
-        for y in sorted(snapshots.keys()):
+    def collect_vals(year_list, feat):
+        j = feature_names.index(feat)
+        all_vals = []
+        for y in year_list:
             X = snapshots[y]["X_alters"]
             if X.size == 0:
                 continue
-            col = X[:, j]
-            all_vals.append(col)
+            all_vals.append(X[:, j])
+        if not all_vals:
+            return None
+        return np.concatenate(all_vals, axis=0)
 
-        if len(all_vals) == 0:
-            global_edges[feat] = None
-            continue
+    if mode == "global":
+        for feat, spec in cat_specs.items():
+            if feat not in feature_names:
+                for y in years:
+                    thresholds_by_year[y][feat] = None
+                continue
 
-        all_vals = np.concatenate(all_vals, axis=0) #Todos los valores de los alters del feature
+            vals = collect_vals(years, feat)
+            edges = global_quantile_edges(vals, spec["probs"]) if vals is not None else None
+            for y in years:
+                thresholds_by_year[y][feat] = edges
 
-        edges = global_quantile_edges(all_vals, spec["probs"])
-        global_edges[feat] = edges
+            if edges is None:
+                print(f"[INFO] {feat}: edges=None (distribución degenerada o vacía).")
+            else:
+                print(f"[OK] {feat}: edges globales = {edges}")
 
-        if edges is None:
-            print(f"[INFO] {feat}: edges=None (distribución degenerada o vacía).")
-        else:
-            print(f"[OK] {feat}: edges globales = {edges}")
 
-    return global_edges
+        return thresholds_by_year
 
+    if mode == "window":
+        # Particiona años en bloques consecutivos de tamaño window_size
+        for i in range(0, len(years), window_size):
+            window_years = years[i:i+window_size]
+
+            for feat, spec in cat_specs.items():
+                if feat not in feature_names:
+                    for y in window_years:
+                        thresholds_by_year[y][feat] = None
+                    continue
+
+                vals = collect_vals(window_years, feat)
+                edges = global_quantile_edges(vals, spec["probs"]) if vals is not None else None
+
+                for y in window_years:
+                    thresholds_by_year[y][feat] = edges
+
+                if edges is None:
+                    print(f"[INFO] {feat}: edges=None (distribución degenerada o vacía).")
+                else:
+                    print(f"[OK] {feat}: edges globales = {edges}")
+
+        return thresholds_by_year
+
+    raise ValueError("mode debe ser 'global' o 'window'")
 
 
 '''
@@ -413,12 +441,18 @@ generate_anual_proportions:
 
             Al final todos los weighted suman 1 y todos los unweighted suman 1
 '''
-def generate_anual_proportions(snapshots, feature_names, cat_specs, global_edges, idx_docs):
+def generate_anual_proportions(snapshots, feature_names, cat_specs, thresholds_dict, idx_docs):
     """
     Asigna bins y calcula proporciones (weighted y unweighted) por año.
     Devuelve un DataFrame (df_cats) detallado.
+    Funciona tanto con umbrales globales como con umbrales por ventana de tiempo.
     """
     rows_cat = []
+    
+    # Detectamos automáticamente si el diccionario es por año o es global
+    # Si la primera llave es un número (un año), sabemos que es modo ventana.
+    primer_llave = list(thresholds_dict.keys())[0]
+    is_window_mode = isinstance(primer_llave, int)
 
     for year in sorted(snapshots.keys()):
         snap = snapshots[year]
@@ -438,13 +472,15 @@ def generate_anual_proportions(snapshots, feature_names, cat_specs, global_edges
                 continue
 
             j = feature_names.index(feat)
-            edges = global_edges.get(feat)
+            
+            if is_window_mode:
+                edges = thresholds_dict.get(year, {}).get(feat) # Si estamos en modo ventana, buscamos el año específico
+            else:
+                edges = thresholds_dict.get(feat) # Si estamos en modo global, extraemos el feature directo
 
             bins = assign_bins(X[:, j], edges)
-
             # si edges colapsó (por ejemplo 1 edge en vez de 3), el número de bins reales cambia
             # Definimos n_bins_real = len(edges)+1 si edges existe, sino spec["n_bins"]
-
             if edges is None:
                 n_bins_real = spec["n_bins"]
                 labels = spec["labels"]
@@ -456,7 +492,6 @@ def generate_anual_proportions(snapshots, feature_names, cat_specs, global_edges
             s_w = shares_from_bins(bins, weights=w_docs, n_bins=n_bins_real)
 
             safe_feat = feat.replace(" ", "_").replace(".", "").replace(",", "").replace("%", "pct")
-
 
             # Guardar columnas con nombres estables
             # share_unw_citations_baja, share_w_citations_alta, etc.

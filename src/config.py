@@ -43,3 +43,6 @@ CAT_SPECS = {
         "labels": ["baja", "media", "alta"]
     }
 }
+
+MODO_CUANTILES = "global" # Puede ser "global" o "window"
+TAMANO_VENTANA = 5        # Tamaño de intervalos para tomar en cuenta los percentiles
