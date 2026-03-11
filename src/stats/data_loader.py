@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
-import src.config as cfg
+import src.global_config as global_cfg
 
 def load_taxonomy_mapping(csv_path: str):
     """
@@ -87,7 +87,7 @@ def parse_microradial(raw_json, taxonomy_map: dict, level: str):
         row = []
         #Scope es la primera identificacion para acceder a los features. Ej: weights o scores
         #Key ya es como tal la propiedad a extraer. Ej: Percent of documents, aver autorship, etc.
-        for scope, key in cfg.FEATURES:
+        for scope, key in global_cfg.FEATURES:
             row.append(node.get(scope, {}).get(key, 0))
         X.append(row)
 
@@ -119,8 +119,8 @@ def validate_snapshot(parsed, year):
     X = parsed["X_alters"]
     if X.ndim != 2:
         raise ValueError(f"[{year}] X_alters no es 2D (shape={X.shape}).")
-    if X.shape[1] != len(cfg.FEATURES):
-        raise ValueError(f"[{year}] X_alters tiene {X.shape[1]} features, esperaba {len(cfg.FEATURES)}.")
+    if X.shape[1] != len(global_cfg.FEATURES):
+        raise ValueError(f"[{year}] X_alters tiene {X.shape[1]} features, esperaba {len(global_cfg.FEATURES)}.")
     if X.shape[0] == 0:
         raise ValueError(f"[{year}] No hay alters (X_alters vacío).")
 

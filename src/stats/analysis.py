@@ -1,5 +1,10 @@
 import numpy as np
 import pandas as pd
+import os
+import statsmodels.api as sm
+import scipy.stats as stats
+from statsmodels.stats.diagnostic import het_breuschpagan
+from statsmodels.stats.stattools import durbin_watson
 
 def safe_probs(masses: np.ndarray):
     """
@@ -504,4 +509,108 @@ def generate_anual_proportions(snapshots, feature_names, cat_specs, thresholds_d
     df_cats = pd.DataFrame(rows_cat).sort_values("year").reset_index(drop=True)
     return df_cats
 
+def cargar_y_unir_datos(level, output_dir="./Output"):
+    """Carga las métricas y los embeddings, y los une por año."""
+    df_stage2 = pd.read_csv(os.path.join(output_dir, f"metricas_{level}.csv"))
+    df_sage = pd.read_csv(os.path.join(output_dir, "graphsage_pca1.csv"))
+    
+    df_all = pd.merge(df_stage2, df_sage, on="year", how="inner").sort_values("year").reset_index(drop=True) #aqui unimos los 2 data frames
+    return df_all
 
+def ajustar_modelo_ols(df, y_col, x_cols, usar_hac=False, maxlags=3):
+    """
+    Ajusta un modelo de regresión lineal OLS.
+    Si usar_hac es True, aplica errores robustos (HAC).
+    """
+    y = df[y_col].astype(float)
+    X = df[x_cols].astype(float)
+    X_sm = sm.add_constant(X)
+    
+    if usar_hac:
+        modelo = sm.OLS(y, X_sm).fit(cov_type='HAC', cov_kwds={'maxlags': maxlags})
+    else:
+        modelo = sm.OLS(y, X_sm).fit()
+        
+    return modelo
+
+def cargar_y_unir_datos(level, output_dir="./Output"):
+    """Carga las métricas y los embeddings, y los une por año."""
+    df_stage2 = pd.read_csv(os.path.join(output_dir, f"metricas_{level}.csv"))
+    df_sage = pd.read_csv(os.path.join(output_dir, "graphsage_pca1.csv"))
+    
+    df_all = pd.merge(df_stage2, df_sage, on="year", how="inner").sort_values("year").reset_index(drop=True)
+    return df_all
+
+def ajustar_modelo_ols(df, y_col, x_cols, usar_hac=False, maxlags=3):
+    """
+    Ajusta un modelo de regresión lineal OLS.
+    Si usar_hac es True, aplica errores robustos (HAC).
+    """
+    y = df[y_col].astype(float)
+    X = df[x_cols].astype(float)
+    X_sm = sm.add_constant(X)
+    
+    if usar_hac:
+        modelo = sm.OLS(y, X_sm).fit(cov_type='HAC', cov_kwds={'maxlags': maxlags})
+    else:
+        modelo = sm.OLS(y, X_sm).fit()
+        
+    return modelo
+
+def ejecutar_diagnostico_residuos(modelo):
+    """Calcula e imprime las pruebas de Durbin-Watson, Shapiro-Wilk y Breusch-Pagan."""
+    residuos = modelo.resid
+    
+    print("-" * 60)
+    print("Diagnostico de residuos")
+    print("-" * 60)
+    
+    # INDEPENDENCIA (Durbin-Watson)
+    # Rango de 0 a 4. El valor ideal es 2 (independencia
+    # Menos de 1.5 es mala señal (autocorrelación positiva)
+
+    dw_valor = durbin_watson(residuos)
+    print(f"Prueba de Durbin-Watson (Independencia): {dw_valor:.3f}")
+
+    # NORMALIDAD (Shapiro-Wilk)
+    # H0: Los residuos son normales.
+    shapiro_test, shapiro_p = stats.shapiro(residuos)
+    print(f"Prueba de Shapiro-Wilk (Normalidad): p-value = {shapiro_p:.4f}")
+
+    # HOMOCEDASTICIDAD (Breusch-Pagan)
+    # H0: La varianza es constante.
+    bp_test = het_breuschpagan(residuos, modelo.model.exog)
+    print(f"Prueba de Breusch-Pagan (Homocedasticidad): p-value = {bp_test[1]:.4f}")
+    
+    return residuos, modelo.fittedvalues
+
+
+def procesar_etiquetas_y_valores(df_cats, cat_specs):
+    """
+    Limpia los nombres de las features, calcula los dominantes y 
+    separa el dataframe en uno de etiquetas y otro de valores numéricos.
+    """
+    df = df_cats.copy()
+    
+    #Lo unico que hace es extraer los "labels" definidos en la constante CAT_SPECS de config.py
+    specs_limpios = {}
+    for llave_sucia, valores in cat_specs.items():
+        llave_limpia = llave_sucia.replace(".", "").replace(" ", "_")
+        specs_limpios[llave_limpia] = {"cats": valores["labels"]}
+
+    # aregar columnas dominantes
+    df2 = add_dominants(df, specs_limpios)
+
+    # Etiquetas en forma de palabras
+    label_cols = ["year"]
+    for feature in specs_limpios.keys():
+        label_cols += [f"unw_{feature}", f"wdocs_{feature}"]
+    df_labels = df2[label_cols].sort_values("year").reset_index(drop=True)
+
+    #Etiquetas en forma de numeros
+    value_cols = ["year"]
+    for feature in specs_limpios.keys():
+        value_cols += [f"unw_{feature}_value", f"wdocs_{feature}_value"]
+    df_values = df2[value_cols].sort_values("year").reset_index(drop=True)
+
+    return df_labels, df_values
