@@ -2,9 +2,9 @@ import os
 import json
 import torch
 from torch_geometric.nn import global_mean_pool
-import Sage.src.gnn.config as ecfg
+import src.gnn.config as ecfg
 import src.gnn.model as sage
-import Sage.src.gnn.data_loader as gnnDataLoader
+import src.gnn.data_loader as gnnDataLoader
 import src.gnn.train as train
 import src.global_config as global_cfg
 
@@ -23,10 +23,10 @@ def run_temporal_graphsage(device):
     criterion = torch.nn.BCEWithLogitsLoss()
     historia = []
     
-    global_scaler = gnnDataLoader.fit_global_scaler(ecfg.DATA_FOLDER, global_cfg.START_YEAR, global_cfg.END_YEAR, global_cfg.FEATURES, exclude_ego=True)
+    global_scaler = gnnDataLoader.fit_global_scaler(global_cfg.DATA_FOLDER, global_cfg.START_YEAR, global_cfg.END_YEAR, global_cfg.FEATURES, exclude_ego=True)
 
     for year in range(global_cfg.START_YEAR, global_cfg.END_YEAR + 1):
-        file_path = os.path.join(ecfg.DATA_FOLDER, f"network_{year}.json")
+        file_path = os.path.join(global_cfg.DATA_FOLDER, f"network_{year}.json")
         
         # Verificar si el archivo existe (El de 1990 no está en la plataforma del c3)
         if not os.path.exists(file_path):
