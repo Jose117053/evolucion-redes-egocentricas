@@ -2,12 +2,56 @@ import os
 import json
 import torch
 import numpy as np
+import src.global_config as gcfg
 from torch_geometric.data import Data
 from sklearn.preprocessing import StandardScaler
 
+
+# ─────────────────────────────────────────────────────────────────────
+# DETECCIÓN DEL NODO EGO
+# ─────────────────────────────────────────────────────────────────────
+
+def _is_ego_node(node):
+    """
+    Determina si un nodo es el Ego de la red egocéntrica.
+    Criterio: su id empieza con 'MCT' O su Percent of documents es 100.0.
+    """
+    nid = str(node.get("id", ""))
+    return (
+        nid.startswith("MCT") or
+        node.get("scores", {}).get("Percent of documents", 0) == 100.0
+    )
+
+
+def get_ego_mask(raw_json):
+    """
+    Devuelve un tensor booleano del tamaño del número de nodos:
+      True  → nodo ALTER  (se incluye en pooling y análisis)
+      False → nodo EGO    (se excluye de pooling y análisis)
+
+    Uso: aplicar esta máscara DESPUÉS del forward pass de GraphSAGE
+    para excluir al ego del embedding agregado, sin quitarlo del
+    message-passing (donde su presencia preserva la topología
+    egocéntrica real).
+    """
+    mask = []
+    for node in raw_json["network"]["items"]:
+        mask.append(not _is_ego_node(node))
+    return torch.tensor(mask, dtype=torch.bool)
+
+
+# ─────────────────────────────────────────────────────────────────────
+# SCALER GLOBAL (solo para feature_mode="bibliometric")
+# ─────────────────────────────────────────────────────────────────────
+
 def fit_global_scaler(data_folder, start_year, end_year, feature_keys, exclude_ego=True):
     """
-    feature_keys: lista de tuplas (scope, key) como FEATURES
+    Ajusta un StandardScaler global sobre TODAS las ventanas temporales.
+    Solo se usa cuando feature_mode="bibliometric".
+    Para "ones" el scaler no es necesario.
+
+    feature_keys: lista de tuplas (scope, key), ej. FEATURES.
+    exclude_ego: si True, excluye nodos MCT del ajuste del scaler.
     """
     all_rows = []
 
@@ -22,7 +66,7 @@ def fit_global_scaler(data_folder, start_year, end_year, feature_keys, exclude_e
         items = raw_json["network"]["items"]
 
         for node in items:
-            if exclude_ego and (str(node.get("id","")).startswith("MCT")):
+            if exclude_ego and _is_ego_node(node):
                 continue
 
             row = []
@@ -35,76 +79,99 @@ def fit_global_scaler(data_folder, start_year, end_year, feature_keys, exclude_e
     scaler.fit(all_rows)
     return scaler
 
-def json_to_pyg_data(json_data, scaler=None):
+
+# ─────────────────────────────────────────────────────────────────────
+# CONVERSIÓN JSON → PyG Data
+# ─────────────────────────────────────────────────────────────────────
+
+def json_to_pyg_data(json_data, feature_mode="bibliometric",
+                     feature_keys=None, scaler=None):
+    """
+    Convierte un JSON de red egocéntrica a un objeto PyG Data.
+
+    El nodo Ego PERMANECE en el grafo (edge_index y x) para que
+    participe en el message-passing de GraphSAGE. La exclusión del
+    ego se hace DESPUÉS, durante el pooling, usando get_ego_mask().
+
+    Parámetros:
+        feature_mode: str
+            "bibliometric" → usa features bibliométricas (sin Documents,)
+                             escaladas por el scaler global.
+            "ones"         → x = ones(N, 1). Embedding puramente
+                             topológico; GraphSAGE solo aprende de la
+                             estructura de aristas.
+
+        feature_keys: lista de tuplas (scope, key).
+            Solo relevante cuando feature_mode="bibliometric".
+            Si es None, se importa FEATURES de global_config.
+
+        scaler: StandardScaler ajustado globalmente.
+            Solo relevante cuando feature_mode="bibliometric".
+            Si es None y mode es "bibliometric", ajusta uno local.
+
+    Retorna:
+        data: torch_geometric.data.Data con x, edge_index, edge_attr.
+              edge_attr contiene 'strength' como metadato/compatibilidad
+              futura — GraphSAGE no lo usa actualmente.
+    """
     items = json_data["network"]["items"]
     links = json_data["network"]["links"]
 
+    # ── Mapa de IDs a índices ──
     id_map = {node["id"]: i for i, node in enumerate(items)}
+    num_nodes = len(items)
 
-    node_features = []
-    for node in items:
-        features = [
-            node["weights"].get("WoS Categories", 0),
-            node["weights"].get("Document Types",  0),
-            node["weights"].get("Documents,", 0),
-            node["scores"].get("Ave. citations",0.0),
-            node["scores"].get("Ave. authorships",0.0),
-            node["scores"].get("Ave. references",0.0),
-         node["scores"].get("Percent of documents",0.0),
-            node["scores"].get("Percent of documents Int. Coll.",0.0)
-        ]
-        node_features.append(features)
-    
-    #x = torch.tensor(node_features, dtype=torch.float)
-    features_array = np.array(node_features, dtype=float)
-
-    if scaler is None:
-        scaler = StandardScaler().fit(features_array)
-    features_scaled = scaler.transform(features_array)
-
-    x = torch.tensor(features_scaled, dtype=torch.float)
-
-    #Aristas
+    # ── Aristas ──
+    # strength se conserva como metadato en edge_attr, pero
+    # SAGEConv no lo usa (no consume edge_attr por defecto), podria 
+    # usarlo indirectamente a través de Documents, pues tienen el mismo valor.
     sources = []
     targets = []
     edge_weights = []
-    
-    for link in links:
-        u_str = link["source_id"]
-        v_str = link["target_id"]
-        strength = link["strength"]
 
-        u = id_map[u_str]
-        v = id_map[v_str]
+    for link in links:
+        u = id_map[link["source_id"]]
+        v = id_map[link["target_id"]]
+        strength = link["strength"]
 
         sources.append(u)
         targets.append(v)
         edge_weights.append(strength)
 
+    edge_index = torch.tensor([sources, targets], dtype=torch.long)
+    edge_attr = torch.tensor(edge_weights, dtype=torch.float).view(-1, 1)
 
-    edge_index = torch.tensor([sources, targets], dtype = torch.long)
-    edge_attr = torch.tensor(edge_weights, dtype=torch.float).view(-1,1) #al ser de una sola dimensión, lo pasamos a una matriz de x filas por 1 columna
+    # ── Features de nodo según feature_mode ──
 
+    if feature_mode == "bibliometric":
+        if feature_keys is None:
+            feature_keys = gcfg.FEATURES
 
-    #El tipo "Data" es exclusivamente para que sage pueda procesar el grafo
-    data = Data(x=x, edge_index = edge_index, edge_attr = edge_attr)
-    #x son mis caracteristicas
-    #edge_index es la topologia (aristas)
-    #edge_attr en este caso son únicamente los pesos
+        node_features = []
+        for node in items:
+            row = []
+            for scope, key in feature_keys:
+                row.append(node.get(scope, {}).get(key, 0))
+            node_features.append(row)
 
-    return data
+        features_array = np.array(node_features, dtype=float)
 
-def get_ego_mask(raw_json):
-    """
-    Devuelve un tensor booleano:
-    True  -> nodo ALTER
-    False -> nodo EGO (MCT)
-    """
-    mask = []
-    for node in raw_json["network"]["items"]:
-        is_ego = (
-            node["id"].startswith("MCT") or
-            node["scores"].get("Percent of documents", 0) == 100.0
+        if scaler is None:
+            scaler = StandardScaler().fit(features_array)
+        features_scaled = scaler.transform(features_array)
+
+        x = torch.tensor(features_scaled, dtype=torch.float)
+
+    elif feature_mode == "ones":
+        # Embedding puramente topológico: GraphSAGE solo aprende
+        # de la estructura de aristas vía message-passing.
+        # Todos los nodos reciben la misma feature constante.
+        x = torch.ones(num_nodes, 1, dtype=torch.float)
+    else:
+        raise ValueError(
+            f"feature_mode='{feature_mode}' no reconocido. "
+            "Opciones: 'bibliometric', 'ones'"
         )
-        mask.append(not is_ego)
-    return torch.tensor(mask, dtype=torch.bool)
+
+    data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr)
+    return data

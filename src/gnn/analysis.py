@@ -54,7 +54,19 @@ def calcular_pca_1d(historia):
 #al finalizar de contabilizar este feature, realizamos un promedio y lo agregamos a feats_year
 #continuamos con el siguiente feature, continuamos cn el siguiente año hasta terminar
 def obtener_promedios_anuales(years, feature_names, data_folder):
+    """
+    Calcula el promedio de las features originales por cada año desde los JSON.
+    
+    IMPORTANTE: excluye al nodo Ego (MCT) del cálculo para que los
+    promedios representen solo la comunidad de alters, consistente
+    con la exclusión del ego en el pooling de GraphSAGE y en el
+    módulo de stats.
+    """
+    from src.gnn.data_loader import _is_ego_node
+    
     features_anuales = []
+    print("Calculando promedios anuales de los datos crudos (sin ego)...")
+    
     for year in years:
         with open(os.path.join(data_folder, f"network_{year}.json"), "r") as f:
             raw_json = json.load(f)
@@ -64,6 +76,10 @@ def obtener_promedios_anuales(years, feature_names, data_folder):
         for feature in feature_names:
             vals = []
             for node in items:
+                # Excluir al ego: su Percent of documents=100
+                # distorsionaría todos los promedios
+                if _is_ego_node(node):
+                    continue
                 val = node.get("weights", {}).get(feature) or node.get("scores", {}).get(feature, 0)
                 vals.append(val)
             feats_year.append(np.mean(vals))

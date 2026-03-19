@@ -7,7 +7,6 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 START_YEAR = 1980
 END_YEAR = 2024
 
-# Features de los nodos
 FEATURES = [
     ("weights", "WoS Categories"),
     ("weights", "Document Types"),

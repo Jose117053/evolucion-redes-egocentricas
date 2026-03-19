@@ -1,22 +1,34 @@
-PRESERVAR_HISTORIA = True  # True = Warm-start (transfiere aprendizaje al siguiente año). False = Inicia de cero.
+PRESERVAR_HISTORIA = False  # True = Warm-start (transfiere aprendizaje al siguiente año). False = Inicia de cero.
 
-# Features de los nodos
-FEATURES = [
-    ("weights", "WoS Categories"),
-    ("weights", "Document Types"),
-    ("weights", "Documents,"),
-    ("scores",  "Ave. citations"),
-    ("scores",  "Ave. authorships"),
-    ("scores",  "Ave. references"),
-    ("scores",  "Percent of documents"),
-    ("scores",  "Percent of documents Int. Coll.")
-]
+# ─────────────────────────────────────────────────────────────────────
+# FEATURE_MODE: controla qué features de nodo recibe GraphSAGE.
+#
+#   "bibliometric" → features bibliométricas SIN "Documents," (evita
+#                     redundancia con strength y circularidad con la
+#                     capa estadística posterior).
+#   "ones"         → x = ones(N,1). GraphSAGE aprende solo desde la
+#                     topología del grafo.
+#
+# PRESERVAR_HISTORIA y FEATURE_MODE son independientes: se pueden
+# combinar libremente (ej. ones + warm-start, bibliometric + reset).
+# ─────────────────────────────────────────────────────────────────────
+FEATURE_MODE = "ones"
 
-# Configuración de preprocesamiento
-EXCLUDE_EGO_IN_SCALER = True
 
-# Hiperparámetros de graphsage
-IN_CHANNELS = len(FEATURES)
+# IN_CHANNELS se calcula dinámicamente según FEATURE_MODE
+def get_in_channels(feature_mode):
+    """Retorna el número de features de entrada según el modo."""
+    if feature_mode == "bibliometric":
+        import src.global_config as gcfg
+        return len(gcfg.FEATURES)
+    elif feature_mode in ("ones"):
+        return 1
+    else:
+        raise ValueError(f"FEATURE_MODE no reconocido: '{feature_mode}'")
+
+IN_CHANNELS = get_in_channels(FEATURE_MODE)
+
+# Hiperparámetros de GraphSAGE
 HIDDEN_CHANNELS = 32
 OUT_CHANNELS = 8
 DROPOUT_RATE = 0.1
@@ -27,6 +39,9 @@ LR_RESET = 0.005             # Learning rate alternativo si PRESERVAR_HISTORIA e
 WEIGHT_DECAY = 5e-4
 EPOCHS_INITIAL = 200         # Épocas para probar/estabilizar el primer snapshot
 EPOCHS_PER_YEAR = 60         # Épocas de fine-tuning durante la iteración de la serie de tiempo
+
+# Configuración de preprocesamiento
+EXCLUDE_EGO_IN_SCALER = True
 
 # Parámetros de análisis estadístico
 PCA_COMPONENTS_TRAJ = 2      # Para la gráfica de evolución 2D
