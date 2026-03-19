@@ -29,11 +29,17 @@ def calcular_pca_1d(historia):
     pca_1d = PCA(n_components=1)
     coord_y_original = pca_1d.fit_transform(vectores).flatten()
 
+    # ¿Qué porcentaje de la información real está capturando esta línea?
+    ev1 = pca_1d.explained_variance_ratio_[0] 
+    
+    # ¿Hacia dónde está apuntando esta línea en el espacio 8D?
+    loading = pca_1d.components_[0]
+
     df_flujo = pd.DataFrame({
         'year': years,
         'y_original': coord_y_original
     })
-    return df_flujo
+    return df_flujo, {"ev1": ev1, "loading": loading}
 
 
 #¿Por qué es necesario hacer un promedio?
@@ -48,12 +54,7 @@ def calcular_pca_1d(historia):
 #al finalizar de contabilizar este feature, realizamos un promedio y lo agregamos a feats_year
 #continuamos con el siguiente feature, continuamos cn el siguiente año hasta terminar
 def obtener_promedios_anuales(years, feature_names, data_folder):
-    """Calcula el promedio de las features originales por cada año desde los JSON."""
-    # Matriz para guardar el promedio de cada feature por año
-    # Tamaño: [num_años, num_features]
     features_anuales = []
-    print("Calculando promedios anuales de los datos crudos...")
-    
     for year in years:
         with open(os.path.join(data_folder, f"network_{year}.json"), "r") as f:
             raw_json = json.load(f)
@@ -61,16 +62,15 @@ def obtener_promedios_anuales(years, feature_names, data_folder):
         items = raw_json["network"]["items"]
         feats_year = []
         for feature in feature_names:
-            # Extraer el valor de cada nodo
             vals = []
             for node in items:
                 val = node.get("weights", {}).get(feature) or node.get("scores", {}).get(feature, 0)
                 vals.append(val)
-            feats_year.append(np.mean(vals)) # Guardar el promedio de este año
+            feats_year.append(np.mean(vals))
         
         features_anuales.append(feats_year)
 
-    df_features = pd.DataFrame(features_anuales, columns=feature_names, index=years)#cada fila es un año, y 8 columnas, cada una es el promedio de toda la grafica de un solo feature
+    df_features = pd.DataFrame(features_anuales, columns=feature_names, index=years)
     return df_features
 
 #Ya tenemos los datos como queremos, podemos proceder a realizar correlacion
