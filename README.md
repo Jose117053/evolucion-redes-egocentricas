@@ -1,0 +1,1 @@
+Version de python usado: 3.12.9
