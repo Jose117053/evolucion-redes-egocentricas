@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 from scipy.stats import pearsonr
+from src.gnn.data_loader import _is_ego_node
 
 def calcular_pca_2d(historia):
     """Aplica PCA para reducir a 2 dimensiones (para la trayectoria)."""
@@ -57,12 +58,11 @@ def obtener_promedios_anuales(years, feature_names, data_folder):
     """
     Calcula el promedio de las features originales por cada año desde los JSON.
     
-    IMPORTANTE: excluye al nodo Ego (MCT) del cálculo para que los
+    Excluye al nodo Ego (MCT) del cálculo para que los
     promedios representen solo la comunidad de alters, consistente
     con la exclusión del ego en el pooling de GraphSAGE y en el
     módulo de stats.
     """
-    from src.gnn.data_loader import _is_ego_node
     
     features_anuales = []
     print("Calculando promedios anuales de los datos crudos (sin ego)...")

@@ -6,10 +6,7 @@ import src.global_config as gcfg
 from torch_geometric.data import Data
 from sklearn.preprocessing import StandardScaler
 
-
-# ─────────────────────────────────────────────────────────────────────
 # DETECCIÓN DEL NODO EGO
-# ─────────────────────────────────────────────────────────────────────
 
 def _is_ego_node(node):
     """
@@ -22,6 +19,15 @@ def _is_ego_node(node):
         node.get("scores", {}).get("Percent of documents", 0) == 100.0
     )
 
+# IN_CHANNELS se calcula dinámicamente según FEATURE_MODE
+def get_in_channels(feature_mode):
+    """Retorna el número de features de entrada según el modo."""
+    if feature_mode == "bibliometric":
+        return len(gcfg.FEATURES)
+    elif feature_mode in ("ones"):
+        return 1
+    else:
+        raise ValueError(f"FEATURE_MODE no reconocido: '{feature_mode}'")
 
 def get_ego_mask(raw_json):
     """

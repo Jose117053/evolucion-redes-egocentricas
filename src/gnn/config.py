@@ -1,32 +1,20 @@
-PRESERVAR_HISTORIA = False  # True = Warm-start (transfiere aprendizaje al siguiente año). False = Inicia de cero.
+import src.gnn.data_loader as dl
+
+PRESERVAR_HISTORIA = True  # True = Warm-start (transfiere aprendizaje al siguiente año). False = Inicia de cero.
 
 # ─────────────────────────────────────────────────────────────────────
 # FEATURE_MODE: controla qué features de nodo recibe GraphSAGE.
 #
-#   "bibliometric" → features bibliométricas SIN "Documents," (evita
-#                     redundancia con strength y circularidad con la
-#                     capa estadística posterior).
+#   "bibliometric" → features bibliométricas 
 #   "ones"         → x = ones(N,1). GraphSAGE aprende solo desde la
 #                     topología del grafo.
 #
 # PRESERVAR_HISTORIA y FEATURE_MODE son independientes: se pueden
-# combinar libremente (ej. ones + warm-start, bibliometric + reset).
+# combinar libremente (ej. ones + warm-start, bibliometric + reset(False)).
 # ─────────────────────────────────────────────────────────────────────
 FEATURE_MODE = "ones"
 
-
-# IN_CHANNELS se calcula dinámicamente según FEATURE_MODE
-def get_in_channels(feature_mode):
-    """Retorna el número de features de entrada según el modo."""
-    if feature_mode == "bibliometric":
-        import src.global_config as gcfg
-        return len(gcfg.FEATURES)
-    elif feature_mode in ("ones"):
-        return 1
-    else:
-        raise ValueError(f"FEATURE_MODE no reconocido: '{feature_mode}'")
-
-IN_CHANNELS = get_in_channels(FEATURE_MODE)
+IN_CHANNELS = dl.get_in_channels(FEATURE_MODE)
 
 # Hiperparámetros de GraphSAGE
 HIDDEN_CHANNELS = 32

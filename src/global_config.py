@@ -1,6 +1,6 @@
 import os
 
-DATA_FOLDER = "./Data/SOM" #Carpeta del que se toman los datos
+DATA_FOLDER = "./Data/BN" #Carpeta del que se toman los datos
 OUTPUT_DIR = "./Output" #Carpeta en el que se guardaran los .csv
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

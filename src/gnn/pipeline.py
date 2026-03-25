@@ -28,7 +28,7 @@ def run_temporal_graphsage(device):
        el modelo se transfiere entre años (warm-start) o se reinicia.
     """
     feature_mode = ecfg.FEATURE_MODE
-    in_channels = ecfg.get_in_channels(feature_mode)
+    in_channels = gnnDataLoader.get_in_channels(feature_mode)
 
     print(f"Feature mode: {feature_mode} (in_channels={in_channels})")
     print(f"Warm-start: {ecfg.PRESERVAR_HISTORIA}")
