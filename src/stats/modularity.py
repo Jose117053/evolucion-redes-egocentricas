@@ -295,3 +295,76 @@ def enriquecer_con_labels(df_perfil: pd.DataFrame,
     df_perfil['cluster_label'] = df_perfil['cluster'].map(label_map)
     
     return df_perfil
+
+
+# ─────────────────────────────────────────────────────────────────────
+# CORRELACIÓN MODULARIDAD vs PC1
+# ─────────────────────────────────────────────────────────────────────
+
+def correlacionar_modularidad(df_modularidad: pd.DataFrame,
+                               pc1_series: np.ndarray,
+                               pc1_years: np.ndarray,
+                               pc1_label: str = "PC1") -> pd.DataFrame:
+    """
+    Correlaciona las métricas de modularidad contra una serie de PC1.
+    
+    Parámetros:
+        df_modularidad: DataFrame de resumen_modularidad_temporal()
+        pc1_series: array con valores de PC1 (uno por año)
+        pc1_years: array con los años correspondientes a pc1_series
+        pc1_label: etiqueta para la columna de PC1 (ej. "PC1_raw", "PC1_graphsage")
+    
+    Retorna:
+        DataFrame con las correlaciones de Pearson y p-values.
+    
+    Imprime un reporte diagnóstico con la recomendación.
+    """
+    from scipy import stats as sp_stats
+    
+    # Alinear por años comunes
+    df_mod = df_modularidad.copy()
+    df_pc1 = pd.DataFrame({'year': pc1_years, pc1_label: pc1_series})
+    df_merged = pd.merge(df_mod, df_pc1, on='year', how='inner')
+    
+    metricas = ['entropia', 'hhi', 'n_clusters', 'cluster_dom_prop', 'n_alters']
+    resultados = []
+    
+    print("=" * 65)
+    print(f"  CORRELACIÓN: Modularidad vs {pc1_label}")
+    print("=" * 65)
+    print(f"  Años alineados: {len(df_merged)}")
+    print("-" * 65)
+    
+    for metrica in metricas:
+        if metrica not in df_merged.columns:
+            continue
+        
+        r, p = sp_stats.pearsonr(df_merged[metrica], df_merged[pc1_label])
+        resultados.append({
+            'metrica': metrica,
+            'pearson_r': round(r, 4),
+            'p_value': round(p, 6),
+            'r_squared': round(r**2, 4),
+            'significativa': '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else 'ns'
+        })
+        print(f"  {metrica:20s}:  ρ = {r:+.4f}  (p = {p:.4f})  R² = {r**2:.4f}  {resultados[-1]['significativa']}")
+    
+    print("-" * 65)
+    
+    # Diagnóstico principal: entropía vs PC1
+    r_entropia = [r for r in resultados if r['metrica'] == 'entropia']
+    if r_entropia:
+        rho = abs(r_entropia[0]['pearson_r'])
+        if rho > 0.70:
+            print(f"  → 🔴 ALTA CORRELACIÓN (|ρ| = {rho:.2f}): {pc1_label} ya captura")
+            print(f"    la diversidad disciplinaria. El Eje 2 probablemente sea redundante.")
+        elif rho > 0.30:
+            print(f"  → 🟡 CORRELACIÓN MODERADA (|ρ| = {rho:.2f}): Comparten información")
+            print(f"    parcial. La ontología aporta info complementaria → LUZ VERDE para Eje 2.")
+        else:
+            print(f"  → 🟢 BAJA CORRELACIÓN (|ρ| = {rho:.2f}): Son dimensiones independientes.")
+            print(f"    La ontología aporta info totalmente nueva → LUZ VERDE FUERTE para Eje 2.")
+    
+    print("=" * 65)
+    
+    return pd.DataFrame(resultados)
