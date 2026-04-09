@@ -5,6 +5,7 @@ import statsmodels.api as sm
 import scipy.stats as stats
 from statsmodels.stats.diagnostic import het_breuschpagan
 from statsmodels.stats.stattools import durbin_watson
+import src.global_config as global_cfg
 
 def safe_probs(masses: np.ndarray):
     """
@@ -614,3 +615,223 @@ def procesar_etiquetas_y_valores(df_cats, cat_specs):
     df_values = df2[value_cols].sort_values("year").reset_index(drop=True)
 
     return df_labels, df_values
+
+
+# ─────────────────────────────────────────────────────────────────────
+# MODULARIDAD ONTOLÓGICA (antes en modularity.py)
+# Reutiliza hill_numbers, safe_probs y group_masses_by_category
+# ─────────────────────────────────────────────────────────────────────
+
+def resumen_modularidad_temporal(snapshots: dict,
+                                  documents_col_name: str = "Documents,"):
+    """
+    Calcula métricas de diversidad ontológica por año usando Hill Numbers.
+    Reutiliza las funciones existentes hill_numbers, safe_probs y
+    group_masses_by_category.
+
+    Parámetros
+    ----------
+    snapshots : dict[year] -> parsed snapshot (de build_yearly_index)
+        Cada snapshot tiene 'X_alters' y 'categories_alters'.
+    documents_col_name : str
+        Nombre de la columna de masa (Documents,) en FEATURES.
+
+    Retorna
+    -------
+    pd.DataFrame con columnas:
+        [year, n_alters, n_clusters, D0, D1, D2, entropia, hhi,
+         cluster_dom_id, cluster_dom_prop]
+    """
+    feature_names = [key for _, key in global_cfg.FEATURES]
+    doc_idx = feature_names.index(documents_col_name)
+
+    registros = []
+
+    for year in sorted(snapshots.keys()):
+        snap = snapshots[year]
+        X = snap["X_alters"]
+        cats = snap["categories_alters"]
+
+        n_alters = X.shape[0]
+        masses = X[:, doc_idx]
+
+        # Agrupar masas por categoría (reutiliza función existente)
+        cat_ids, cat_masses = group_masses_by_category(cats, masses)
+
+        # Hill numbers (reutiliza función existente)
+        p = safe_probs(cat_masses)
+        D0, D1, D2 = hill_numbers(p)
+
+        # Entropía de Shannon y HHI derivados de Hill
+        if p is not None:
+            p_arr = np.asarray(p, dtype=float)
+            p_arr = p_arr[p_arr > 0]
+            entropia = float(-np.sum(p_arr * np.log2(p_arr)))
+            hhi = float(np.sum(p_arr ** 2))
+        else:
+            entropia = 0.0
+            hhi = 1.0
+
+        # Cluster dominante
+        if len(cat_ids) > 0:
+            max_idx = np.argmax(cat_masses)
+            dom_id = int(cat_ids[max_idx])
+            dom_prop = float(cat_masses[max_idx] / cat_masses.sum())
+        else:
+            dom_id = -1
+            dom_prop = 0.0
+
+        registros.append({
+            'year': year,
+            'n_alters': n_alters,
+            'n_clusters': int(D0) if not np.isnan(D0) else 0,
+            'D0': round(D0, 4) if not np.isnan(D0) else 0,
+            'D1': round(D1, 4) if not np.isnan(D1) else 0,
+            'D2': round(D2, 4) if not np.isnan(D2) else 0,
+            'entropia': round(entropia, 4),
+            'hhi': round(hhi, 4),
+            'cluster_dom_id': dom_id,
+            'cluster_dom_prop': round(dom_prop, 4)
+        })
+
+    return pd.DataFrame(registros)
+
+
+def perfil_por_cluster(snapshot: dict, feature_names: list = None):
+    """
+    Calcula el perfil bibliométrico promedio agrupado por cluster ontológico
+    para un snapshot dado.
+
+    Parámetros
+    ----------
+    snapshot : dict
+        Un snapshot de build_yearly_index (tiene X_alters, categories_alters).
+    feature_names : list
+        Nombres de las features. Si None, se toman de global_config.
+
+    Retorna
+    -------
+    pd.DataFrame con columnas [cluster, n_alters, feat1_mean, feat1_std, ...]
+    """
+    if feature_names is None:
+        feature_names = [key for _, key in global_cfg.FEATURES]
+
+    X = snapshot["X_alters"]
+    cats = snapshot["categories_alters"]
+
+    # Agrupar por categoría
+    unique_cats = sorted(set(cats[cats >= 0]))
+    registros = []
+
+    for cat in unique_cats:
+        mask = cats == cat
+        X_cat = X[mask]
+        registro = {'cluster': int(cat), 'n_alters': int(mask.sum())}
+
+        for j, feat in enumerate(feature_names):
+            vals = X_cat[:, j]
+            registro[f'{feat}_mean'] = float(np.nanmean(vals))
+            registro[f'{feat}_std'] = float(np.nanstd(vals))
+
+        registros.append(registro)
+
+    return pd.DataFrame(registros)
+
+
+def enriquecer_con_labels(df_perfil: pd.DataFrame,
+                           taxonomy_map: dict,
+                           nivel: str = "macro") -> pd.DataFrame:
+    """
+    Añade etiquetas legibles al DataFrame de perfiles por cluster
+    usando el taxonomy_map de load_taxonomy_mapping().
+
+    Parámetros
+    ----------
+    df_perfil : pd.DataFrame
+        DataFrame con columna 'cluster' (IDs numéricos).
+    taxonomy_map : dict
+        Mapping de load_taxonomy_mapping().
+    nivel : str
+        'macro', 'meso' o 'micro'.
+    """
+    # Construir mapping de id -> label desde el taxonomy_map
+    label_map = {}
+    for code, info in taxonomy_map.items():
+        cat_id = str(info[f"{nivel}_id"])
+        if cat_id not in label_map:
+            label_map[cat_id] = info[f"{nivel}_label"]
+
+    df_perfil = df_perfil.copy()
+    df_perfil['cluster_label'] = df_perfil['cluster'].astype(str).map(label_map)
+
+    return df_perfil
+
+
+def correlacionar_modularidad(df_modularidad: pd.DataFrame,
+                               pc1_series: np.ndarray,
+                               pc1_years: np.ndarray,
+                               pc1_label: str = "PC1") -> pd.DataFrame:
+    """
+    Correlaciona las métricas de modularidad contra una serie de PC1.
+
+    Parámetros
+    ----------
+    df_modularidad : DataFrame de resumen_modularidad_temporal()
+    pc1_series : array con valores de PC1 (uno por año)
+    pc1_years : array con los años correspondientes
+    pc1_label : etiqueta (ej. "PC1_raw", "PC1_graphsage")
+
+    Retorna
+    -------
+    DataFrame con correlaciones de Pearson y p-values.
+    Imprime un reporte diagnóstico.
+    """
+    from scipy.stats import pearsonr
+
+    df_mod = df_modularidad.copy()
+    df_pc1 = pd.DataFrame({'year': pc1_years, pc1_label: pc1_series})
+    df_merged = pd.merge(df_mod, df_pc1, on='year', how='inner')
+
+    metricas = ['entropia', 'hhi', 'n_clusters', 'cluster_dom_prop', 'n_alters',
+                'D0', 'D1', 'D2']
+    resultados = []
+
+    print("=" * 65)
+    print(f"  CORRELACIÓN: Modularidad vs {pc1_label}")
+    print("=" * 65)
+    print(f"  Años alineados: {len(df_merged)}")
+    print("-" * 65)
+
+    for metrica in metricas:
+        if metrica not in df_merged.columns:
+            continue
+
+        r, p = pearsonr(df_merged[metrica], df_merged[pc1_label])
+        resultados.append({
+            'metrica': metrica,
+            'pearson_r': round(r, 4),
+            'p_value': round(p, 6),
+            'r_squared': round(r**2, 4),
+            'significativa': '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else 'ns'
+        })
+        print(f"  {metrica:20s}:  ρ = {r:+.4f}  (p = {p:.4f})  R² = {r**2:.4f}  {resultados[-1]['significativa']}")
+
+    print("-" * 65)
+
+    # Diagnóstico principal: entropía vs PC1
+    r_entropia = [r for r in resultados if r['metrica'] == 'entropia']
+    if r_entropia:
+        rho = abs(r_entropia[0]['pearson_r'])
+        if rho > 0.70:
+            print(f"  → 🔴 ALTA CORRELACIÓN (|ρ| = {rho:.2f}): {pc1_label} ya captura")
+            print(f"    la diversidad disciplinaria. El Eje 2 probablemente sea redundante.")
+        elif rho > 0.30:
+            print(f"  → 🟡 CORRELACIÓN MODERADA (|ρ| = {rho:.2f}): Comparten información")
+            print(f"    parcial. La ontología aporta info complementaria → LUZ VERDE para Eje 2.")
+        else:
+            print(f"  → 🟢 BAJA CORRELACIÓN (|ρ| = {rho:.2f}): Son dimensiones independientes.")
+            print(f"    La ontología aporta info totalmente nueva → LUZ VERDE FUERTE para Eje 2.")
+
+    print("=" * 65)
+
+    return pd.DataFrame(resultados)
