@@ -28,10 +28,13 @@ def run_temporal_graphsage(device):
        el modelo se transfiere entre años (warm-start) o se reinicia.
     """
     feature_mode = ecfg.FEATURE_MODE
-    in_channels = gnnDataLoader.get_in_channels(feature_mode)
+    in_channels = gnnDataLoader.get_in_channels(feature_mode, ecfg.ONTOLOGY_FEATURE_LEVEL)
 
     print(f"Feature mode: {feature_mode} (in_channels={in_channels})")
+    if feature_mode in ("ontology_only", "biblio_and_ontology"):
+        print(f"Ontology feature level: {ecfg.ONTOLOGY_FEATURE_LEVEL}")
     print(f"Warm-start: {ecfg.PRESERVAR_HISTORIA}")
+    print(f"Pooling mode: {ecfg.POOLING_MODE}")
 
     # ── Modelo inicial (si warm-start) ──
     if ecfg.PRESERVAR_HISTORIA:
@@ -79,7 +82,8 @@ def run_temporal_graphsage(device):
                 raw_json,
                 feature_mode=feature_mode,
                 feature_keys=global_cfg.FEATURES,
-                scaler=global_scaler
+                scaler=global_scaler,
+                ontology_level=ecfg.ONTOLOGY_FEATURE_LEVEL
             )
             data = data.to(device)
 
@@ -115,8 +119,68 @@ def run_temporal_graphsage(device):
                 # embedding NO entra en el resumen del grafo.
                 z_alters = z_nodes[alter_mask]  # [N_alters, out_dim]
 
-                # Mean pooling SOLO sobre alters
-                graph_embedding = z_alters.mean(dim=0)  # [out_dim]
+                # ── Pooling según POOLING_MODE ──
+                pooling_mode = ecfg.POOLING_MODE
+
+                if pooling_mode == "mean":
+                    graph_embedding = z_alters.mean(dim=0)
+
+                elif pooling_mode == "weighted":
+                    # Ponderado por Documents,
+                    items = raw_json["network"]["items"]
+                    docs = []
+                    for node in items:
+                        nid = str(node.get("id", ""))
+                        if nid.startswith("MCT"):
+                            continue  # skip ego
+                        docs.append(float(node.get("weights", {}).get("Documents,", 1)))
+                    weights = torch.tensor(docs, dtype=torch.float32, device=device)
+                    weights = weights / weights.sum()  # normalizar
+                    graph_embedding = (z_alters * weights.unsqueeze(1)).sum(dim=0)
+
+                elif pooling_mode == "hierarchical":
+                    # Promedio dentro de cada cluster ontológico, luego promedio de clusters
+                    pooling_level = ecfg.POOLING_LEVEL
+                    items = raw_json["network"]["items"]
+                    clusters = []
+                    for node in items:
+                        nid = str(node.get("id", ""))
+                        if nid.startswith("MCT"):
+                            continue  # skip ego
+                        parts = nid.split(".")
+                        if pooling_level == "macro":
+                            cluster_id = parts[0]
+                        elif pooling_level == "meso":
+                            cluster_id = ".".join(parts[:2]) if len(parts) >= 2 else parts[0]
+                        else:  # micro
+                            cluster_id = nid
+                        clusters.append(cluster_id)
+
+                    unique_clusters = sorted(set(clusters))
+                    cluster_embeddings = []
+                    for m in unique_clusters:
+                        mask = torch.tensor(
+                            [1 if clusters[i] == m else 0 for i in range(len(clusters))],
+                            dtype=torch.bool, device=device
+                        )
+                        if mask.sum() > 0:
+                            cluster_embeddings.append(z_alters[mask].mean(dim=0))
+
+                    if cluster_embeddings:
+                        graph_embedding = torch.stack(cluster_embeddings).mean(dim=0)
+                    else:
+                        graph_embedding = z_alters.mean(dim=0)  # fallback
+
+                elif pooling_mode == "multi_stat":
+                    # Concatenar [mean, max, std] para capturar más información
+                    emb_mean = z_alters.mean(dim=0)
+                    emb_max = z_alters.max(dim=0).values
+                    emb_std = z_alters.std(dim=0) if z_alters.shape[0] > 1 else torch.zeros_like(emb_mean)
+                    graph_embedding = torch.cat([emb_mean, emb_max, emb_std])
+
+                else:
+                    raise ValueError(f"POOLING_MODE '{pooling_mode}' no reconocido. "
+                                     f"Opciones: mean, weighted, hierarchical, multi_stat")
 
                 historia.append({
                     "year": year,
@@ -124,7 +188,7 @@ def run_temporal_graphsage(device):
                 })
 
             print(f"{year} procesado. (alters={alter_mask.sum().item()}, "
-                  f"total_nodos={data.num_nodes})")
+                  f"total_nodos={data.num_nodes}, pooling={pooling_mode})")
 
         except Exception as e:
             print(f"Error en {year}: {e}")

@@ -2,6 +2,7 @@ import os
 
 DATA_FOLDER = "./Data/SOM" #Carpeta del que se toman los datos
 OUTPUT_DIR = "./Output" #Carpeta en el que se guardaran los .csv
+TAXONOMY_CSV = "./Data/citation_topics_2024.csv"  # Ontología jerárquica de tópicos
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 START_YEAR = 1980

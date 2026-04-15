@@ -1,5 +1,6 @@
 LEVEL = "meso"
 TAXONOMY_CSV = "./Data/citation_topics_2024.csv"
+POOLING_MODE = "hierarchical"
 
 DOCS_COL = "Documents,"  # masa para ponderar
 

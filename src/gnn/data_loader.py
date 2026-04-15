@@ -2,6 +2,7 @@ import os
 import json
 import torch
 import numpy as np
+import pandas as pd
 import src.global_config as gcfg
 from torch_geometric.data import Data
 from sklearn.preprocessing import StandardScaler
@@ -19,15 +20,77 @@ def _is_ego_node(node):
         node.get("scores", {}).get("Percent of documents", 0) == 100.0
     )
 
+# ─────────────────────────────────────────────────────────────────────
+# ONTOLOGÍA COMO FEATURE: carga la taxonomía y construye un índice
+# para generar vectores one-hot por nodo.
+# ─────────────────────────────────────────────────────────────────────
+
+_ontology_cache = {}  # Cache: (csv_path, level) → (cat_to_idx, num_categories)
+
+def load_ontology_index(csv_path, level="macro"):
+    """
+    Carga el CSV de taxonomía y construye:
+      - cat_to_idx: dict {micro_code → índice one-hot} según el nivel
+      - num_categories: número total de categorías en ese nivel
+
+    El micro_code es la clave (ej: '4.61.1335') que coincide con los IDs
+    de los nodos en el JSON de la red.
+
+    Niveles:
+      'macro' → ~10 categorías (ej: macro_id=4)
+      'meso'  → ~278 categorías (ej: meso_id=61)
+      'micro' → ~1933 categorías (ej: micro_id=1335)
+    """
+    cache_key = (csv_path, level)
+    if cache_key in _ontology_cache:
+        return _ontology_cache[cache_key]
+
+    df = pd.read_csv(csv_path)
+    micro_codes = df["micro_label"].astype(str).str.split(" ").str[0].str.strip()
+
+    col = f"{level}_id"  # macro_id, meso_id o micro_id
+    if col not in df.columns:
+        raise ValueError(f"Columna '{col}' no encontrada en {csv_path}")
+
+    # Obtener categorías únicas y asignarles un índice
+    unique_cats = sorted(df[col].unique())
+    cat_value_to_idx = {int(v): i for i, v in enumerate(unique_cats)}
+    num_categories = len(unique_cats)
+
+    # Mapeo: micro_code → índice one-hot (basado en su categoría a nivel 'level')
+    code_to_idx = {}
+    for i, code in enumerate(micro_codes):
+        cat_value = int(df.loc[i, col])
+        code_to_idx[code] = cat_value_to_idx[cat_value]
+
+    _ontology_cache[cache_key] = (code_to_idx, num_categories)
+    return code_to_idx, num_categories
+
+
 # IN_CHANNELS se calcula dinámicamente según FEATURE_MODE
-def get_in_channels(feature_mode):
-    """Retorna el número de features de entrada según el modo."""
+def get_in_channels(feature_mode, ontology_level="macro"):
+    """
+    Retorna el número de features de entrada según el modo.
+
+    Modos disponibles:
+      'ones'              → 1
+      'bibliometric'      → len(FEATURES) (8)
+      'ontology_only'     → num_categories del nivel ontológico
+      'biblio_and_ontology' → len(FEATURES) + num_categories
+    """
     if feature_mode == "bibliometric":
         return len(gcfg.FEATURES)
-    elif feature_mode in ("ones"):
+    elif feature_mode == "ones":
         return 1
+    elif feature_mode in ("ontology_only", "biblio_and_ontology"):
+        _, num_cats = load_ontology_index(gcfg.TAXONOMY_CSV, ontology_level)
+        base = len(gcfg.FEATURES) if feature_mode == "biblio_and_ontology" else 0
+        return base + num_cats
     else:
-        raise ValueError(f"FEATURE_MODE no reconocido: '{feature_mode}'")
+        raise ValueError(
+            f"FEATURE_MODE no reconocido: '{feature_mode}'. "
+            "Opciones: 'ones', 'bibliometric', 'ontology_only', 'biblio_and_ontology'"
+        )
 
 def get_ego_mask(raw_json):
     """
@@ -91,7 +154,7 @@ def fit_global_scaler(data_folder, start_year, end_year, feature_keys, exclude_e
 # ─────────────────────────────────────────────────────────────────────
 
 def json_to_pyg_data(json_data, feature_mode="bibliometric",
-                     feature_keys=None, scaler=None):
+                     feature_keys=None, scaler=None, **kwargs):
     """
     Convierte un JSON de red egocéntrica a un objeto PyG Data.
 
@@ -149,7 +212,7 @@ def json_to_pyg_data(json_data, feature_mode="bibliometric",
 
     # ── Features de nodo según feature_mode ──
 
-    if feature_mode == "bibliometric":
+    if feature_mode in ("bibliometric", "biblio_and_ontology"):
         if feature_keys is None:
             feature_keys = gcfg.FEATURES
 
@@ -166,17 +229,44 @@ def json_to_pyg_data(json_data, feature_mode="bibliometric",
             scaler = StandardScaler().fit(features_array)
         features_scaled = scaler.transform(features_array)
 
-        x = torch.tensor(features_scaled, dtype=torch.float)
+        x_biblio = torch.tensor(features_scaled, dtype=torch.float)
+    else:
+        x_biblio = None
 
-    elif feature_mode == "ones":
-        # Embedding puramente topológico: GraphSAGE solo aprende
-        # de la estructura de aristas vía message-passing.
-        # Todos los nodos reciben la misma feature constante.
+    if feature_mode in ("ontology_only", "biblio_and_ontology"):
+        # Cargar el índice ontológico
+        ontology_level = kwargs.get("ontology_level", "macro")
+        code_to_idx, num_cats = load_ontology_index(
+            gcfg.TAXONOMY_CSV, ontology_level
+        )
+
+        # Construir one-hot para cada nodo
+        onehot_rows = []
+        for node in items:
+            nid = str(node.get("id", ""))
+            vec = np.zeros(num_cats, dtype=float)
+            if nid in code_to_idx:
+                vec[code_to_idx[nid]] = 1.0
+            # Si es ego (MCT...) o no está en el CSV, queda como zeros
+            onehot_rows.append(vec)
+
+        x_onto = torch.tensor(np.array(onehot_rows), dtype=torch.float)
+    else:
+        x_onto = None
+
+    # ── Ensamblar x final ──
+    if feature_mode == "ones":
         x = torch.ones(num_nodes, 1, dtype=torch.float)
+    elif feature_mode == "bibliometric":
+        x = x_biblio
+    elif feature_mode == "ontology_only":
+        x = x_onto
+    elif feature_mode == "biblio_and_ontology":
+        x = torch.cat([x_biblio, x_onto], dim=1)
     else:
         raise ValueError(
             f"feature_mode='{feature_mode}' no reconocido. "
-            "Opciones: 'bibliometric', 'ones'"
+            "Opciones: 'ones', 'bibliometric', 'ontology_only', 'biblio_and_ontology'"
         )
 
     data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr)
