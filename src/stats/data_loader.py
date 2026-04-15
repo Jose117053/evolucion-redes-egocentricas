@@ -3,43 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 import src.global_config as global_cfg
-
-def load_taxonomy_mapping(csv_path: str):
-    """
-    CSV:
-      macro_id,macro_label,meso_id,meso_label,micro_id,micro_label
-
-    Esta función toma la primera parte antes del espacio de la columna micro_label
-      ej: tomamos "4.61.1460" de "4.61.1460 Bayesian Networks"
-    Y  luego en  base a ese codigo guardamos  la informacion de cada microtopico de forma separada
-
-    """
-    df = pd.read_csv(csv_path)
-
-    micro_code = df["micro_label"].astype(str).str.split(" ").str[0].str.strip() #Esta linea  precisammente extrae esos  numeros (la taxonomia que define ese nodo)
-    #micro_code es una lista con todos los codigos definidos en el csv
-
-    #Por cada fila del csv mapeamos en  base al micro  code, es un diccionario de diccionarios
-    mapping = {}
-    for i, code in enumerate(micro_code):
-        mapping[code] = {
-            "macro_id": int(df.loc[i, "macro_id"]),
-            "meso_id":  int(df.loc[i, "meso_id"]),
-            "micro_id": int(df.loc[i, "micro_id"]),
-            "macro_label": str(df.loc[i, "macro_label"]),
-            "meso_label":  str(df.loc[i, "meso_label"]),
-            "micro_label": str(df.loc[i, "micro_label"]),
-        }
-    return mapping
-
-'''
-Determina el nodo ego. Su id empieza con 'MCT' o el 'Percent of documents' es igual a 100
-Returns: El nodo ego
-'''
-def is_ego_node(node):
-    nid = str(node.get("id",""))
-    # preferimos ego que tenga MCT.algo; y el 100% es la segunda propiedad que cumple el ego
-    return nid.startswith("MCT.") or node.get("scores", {}).get("Percent of documents", 0) == 100.0
+from src.ontology import is_ego_node, load_taxonomy_mapping
 
 '''
 Calcula toda la información del ego-network en base al nivel taxonomico recibido: el id del ego

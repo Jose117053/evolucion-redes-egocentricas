@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 from scipy.stats import pearsonr
-from src.gnn.data_loader import _is_ego_node
+from src.ontology import is_ego_node as _is_ego_node
 
 def calcular_pca_2d(historia):
     """Aplica PCA para reducir a 2 dimensiones (para la trayectoria)."""

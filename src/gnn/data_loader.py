@@ -2,69 +2,18 @@ import os
 import json
 import torch
 import numpy as np
-import pandas as pd
 import src.global_config as gcfg
+from src.ontology import is_ego_node, load_ontology_index
 from torch_geometric.data import Data
 from sklearn.preprocessing import StandardScaler
 
-# DETECCIÓN DEL NODO EGO
-
-def _is_ego_node(node):
-    """
-    Determina si un nodo es el Ego de la red egocéntrica.
-    Criterio: su id empieza con 'MCT' O su Percent of documents es 100.0.
-    """
-    nid = str(node.get("id", ""))
-    return (
-        nid.startswith("MCT") or
-        node.get("scores", {}).get("Percent of documents", 0) == 100.0
-    )
-
 # ─────────────────────────────────────────────────────────────────────
-# ONTOLOGÍA COMO FEATURE: carga la taxonomía y construye un índice
-# para generar vectores one-hot por nodo.
+# Funciones de ontología (is_ego_node, load_ontology_index) importadas
+# desde src/ontology.py para evitar duplicación.
 # ─────────────────────────────────────────────────────────────────────
 
-_ontology_cache = {}  # Cache: (csv_path, level) → (cat_to_idx, num_categories)
-
-def load_ontology_index(csv_path, level="macro"):
-    """
-    Carga el CSV de taxonomía y construye:
-      - cat_to_idx: dict {micro_code → índice one-hot} según el nivel
-      - num_categories: número total de categorías en ese nivel
-
-    El micro_code es la clave (ej: '4.61.1335') que coincide con los IDs
-    de los nodos en el JSON de la red.
-
-    Niveles:
-      'macro' → ~10 categorías (ej: macro_id=4)
-      'meso'  → ~278 categorías (ej: meso_id=61)
-      'micro' → ~1933 categorías (ej: micro_id=1335)
-    """
-    cache_key = (csv_path, level)
-    if cache_key in _ontology_cache:
-        return _ontology_cache[cache_key]
-
-    df = pd.read_csv(csv_path)
-    micro_codes = df["micro_label"].astype(str).str.split(" ").str[0].str.strip()
-
-    col = f"{level}_id"  # macro_id, meso_id o micro_id
-    if col not in df.columns:
-        raise ValueError(f"Columna '{col}' no encontrada en {csv_path}")
-
-    # Obtener categorías únicas y asignarles un índice
-    unique_cats = sorted(df[col].unique())
-    cat_value_to_idx = {int(v): i for i, v in enumerate(unique_cats)}
-    num_categories = len(unique_cats)
-
-    # Mapeo: micro_code → índice one-hot (basado en su categoría a nivel 'level')
-    code_to_idx = {}
-    for i, code in enumerate(micro_codes):
-        cat_value = int(df.loc[i, col])
-        code_to_idx[code] = cat_value_to_idx[cat_value]
-
-    _ontology_cache[cache_key] = (code_to_idx, num_categories)
-    return code_to_idx, num_categories
+# Alias interno para compatibilidad con código existente
+_is_ego_node = is_ego_node
 
 
 # IN_CHANNELS se calcula dinámicamente según FEATURE_MODE
