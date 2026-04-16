@@ -26,8 +26,6 @@ COPY src/ ./src/
 COPY Data/ ./Data/
 COPY Utils/ ./Utils/
 COPY *.ipynb ./
-COPY *.md ./
-COPY *.tex ./
 
 #RUN mkdir -p Output/ablation # Crear carpeta de output, pero ya se hace a traves de python
 
