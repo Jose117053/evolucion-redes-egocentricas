@@ -1,0 +1,14 @@
+#   docker-compose up        → Inicia Jupyter en http://localhost:8888
+#   docker-compose up -d     → Inicia en background
+#   docker-compose down      → Detiene el contenedor
+#   docker-compose build     → Reconstruye la imagen (tras cambiar requirements.txt)
+
+services:
+  sage:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      # Output se monta como volumen para que los resultados persistan
+      # en la máquina host (no se pierden al detener el contenedor)
+      - ./Output:/app/Output
