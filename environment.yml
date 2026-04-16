@@ -12,8 +12,6 @@ dependencies:
   - pip:
       - torch==2.5.1
       - torch-geometric==2.7.0
-      - torchaudio==2.5.1
-      - torchvision==0.20.1
       - pandas==2.2.3
       - scipy==1.15.2
       - scikit-learn==1.6.1
