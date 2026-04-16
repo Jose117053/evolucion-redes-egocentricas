@@ -24,7 +24,7 @@ FEATURE_MODE = "ones"
 #   "macro" → ~10 categorías (one-hot de 10 dims)
 #   "meso"  → ~278 categorías (one-hot de 278 dims)
 #   "micro" → ~1933 categorías (NO RECOMENDADO: sobreajuste)
-ONTOLOGY_FEATURE_LEVEL = "macro"
+ONTOLOGY_FEATURE_LEVEL = "micro"
 
 IN_CHANNELS = dl.get_in_channels(FEATURE_MODE, ONTOLOGY_FEATURE_LEVEL)
 

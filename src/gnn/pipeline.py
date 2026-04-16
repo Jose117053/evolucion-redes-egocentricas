@@ -52,6 +52,7 @@ def run_temporal_graphsage(device):
 
     criterion = torch.nn.BCEWithLogitsLoss()
     historia = []
+    auc_per_year = []
 
     # ── Scaler global: solo se necesita para "bibliometric" ──
     if feature_mode == "bibliometric":
@@ -104,10 +105,11 @@ def run_temporal_graphsage(device):
                 )
 
             # Entrenar el modelo con el año actual
-            model = train.train_linkpred(
+            model, year_auc = train.train_linkpred(
                 model, data, optimizer, criterion, device,
                 epochs=ecfg.EPOCHS_PER_YEAR
             )
+            auc_per_year.append(year_auc)
 
             # ── Embeddings: EXCLUIR ego del readout ──
             model.eval()
@@ -188,10 +190,12 @@ def run_temporal_graphsage(device):
                 })
 
             print(f"{year} procesado. (alters={alter_mask.sum().item()}, "
-                  f"total_nodos={data.num_nodes}, pooling={pooling_mode})")
+                  f"total_nodos={data.num_nodes}, pooling={pooling_mode}, AUC={year_auc:.4f})")
 
         except Exception as e:
             print(f"Error en {year}: {e}")
 
-    print(f"Se generaron {len(historia)} puntos.")
-    return historia
+    # Calcular AUC promedio
+    auc_mean = sum(auc_per_year) / len(auc_per_year) if auc_per_year else 0.0
+    print(f"Se generaron {len(historia)} puntos. AUC promedio: {auc_mean:.4f}")
+    return historia, auc_mean
